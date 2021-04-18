@@ -18,7 +18,7 @@ async function dataProduce(api){
 function display(data){
 
 
-var pages = Math.ceil(data.length/rows)
+
 
 return     data = Totalaction;  
     
@@ -26,7 +26,7 @@ return     data = Totalaction;
 }
 
 
-function tableDisplay(){
+function tableDisplay(page){
     
    
   
@@ -34,26 +34,28 @@ function tableDisplay(){
     dataProduce(api).then((data)=>{
         //let van = JSON.stringify(data);
  
-        
-    hello(data,1);       
+    var pages = Math.ceil(data.length/10)
+    hello(data,page);       
     pagination (data.length/10) 
     });  
         
     }
    
 function hello(data,page){
+    
     var rows = 10;
     var start = (page - 1)*rows;
     var end = (start + rows);
 
     for(i=start; i<end; i++){
-        let row = document.createElement('div');
-        row.setAttribute('class','row');         
+        var row = document.createElement('div');
+        row.setAttribute('class','row');
+        row.setAttribute('id','row1')         
     
 
   //      data.slice(start,end);
          
-         
+
 
          row.innerHTML =     
         `<table class='table'>
@@ -79,23 +81,31 @@ function pagination (pages){
 
     for(let currentPages=1; currentPages<= pages; currentPages++){
         wrapper.innerHTML += `<button value='${currentPages}' class='page btn btn-sm btn-info ml-2 mt-5'>${currentPages}</button>`;
+      
 
         $('.page').on('click',function(){
            
+      
 
-             let c1 = document.getElementsByTagName('button');
-             //let c3 = document.getElementById(currentPages)
-            let c2 = c1.innerHTML;
+            var row2 = document.getElementById('row1');
            
-            alert(c2); 
+            let page1 = $(this).val();
+       
+           console.log(page1)
+         
+        
+           row2.innerHTML = tableDisplay(page1); 
+           if('undefined'){
+            location.reload();
+        }
         })
         
     }
 
 
 }
+tableDisplay()
 
-tableDisplay();
 /* 
 var currentPages=1;
     ;
